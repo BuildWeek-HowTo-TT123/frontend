@@ -1,0 +1,4 @@
+App will display signup / login buttons that will route to each page respectively
+On successful login / signup, user will be sent to the UserHome page, which will display How Tos and an option to create a new How To
+Creating a new How To will route you to HowToForm, which is a form to create a new How To. 
+Clicking on a HowTo will bring you to a HowToPage
