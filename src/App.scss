@@ -1,0 +1,53 @@
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-center-column {
+  @include flex-center;
+  flex-direction: column;
+}
+
+@mixin flex-center-vert {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-center-horiz {
+  display: flex;
+  justify-content: center;
+}
+
+.main-login {
+  display: flex;
+  justify-content: space-around;
+
+
+  img {
+    width: 60%;
+    height: 100vh;
+
+  }
+
+  form {
+    align-self: center;
+    justify-self: center;
+    width: 450px;
+  }
+
+  button {
+    background-color: #5cdb5c;
+    color: #494545;
+
+    &:hover {
+      background-color: #65f165;
+      color: #635d5d;
+    }
+  }
+}
