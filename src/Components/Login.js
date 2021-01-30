@@ -5,6 +5,7 @@ import { React, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import "./../App.scss";
+import image from "./../imgs/login.jpg";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -19,13 +20,14 @@ const Login = () => {
 	}
 
 	return (
-		<div>
+		<div className="main-login">
+			<img src={image} alt="" />
 			<Form onSubmit={handleSubmit}>
 				<FormGroup size="lg" controlId="email">
 					<Input
 						autoFocus
 						type="email"
-            placeholder="Username"
+						placeholder="Email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
@@ -33,7 +35,7 @@ const Login = () => {
 				<FormGroup size="lg" controlId="password">
 					<Input
 						type="password"
-            placeholder="Password"
+						placeholder="Password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>

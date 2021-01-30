@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import "./App.scss";
+import TopNav from "./Components/TopNav";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -10,6 +11,8 @@ import {MainPage} from './Components/MainPage';
 function App() {
   return (
 		<Router>
+			<TopNav />
+
 			<Route exact path="/" component={MainPage} />
 			<Route exact path="/login" component={Login} />
 			<Route exact path="/signup" component={Signup} />
