@@ -6,17 +6,23 @@ import {
 	NavbarToggler,
 	NavbarBrand,
 	Nav,
-	NavItem,
 	NavLink,
 	UncontrolledDropdown,
 	DropdownToggle,
 	DropdownMenu,
 	DropdownItem,
-	NavbarText,
+	
 } from "reactstrap";
 
+
+
+
+
 const TopNav = () => {
+	
+	const [auth, setAuth] = useState(0)
 	const [isOpen, setIsOpen] = useState(false);
+
 	function toggle() {
 		return setIsOpen(!isOpen);
 	}
@@ -24,14 +30,39 @@ const TopNav = () => {
 	return (
 		<div>
 			<Navbar color="light" light expand="md">
-				<NavbarBrand href="/">How-To</NavbarBrand>
+				<NavbarBrand tag={RRNavLink} exact to={auth === 1 ? "/home" : "/"}>How-To</NavbarBrand>
+				<UncontrolledDropdown>
+					<DropdownToggle nav caret>
+						Developer
+					</DropdownToggle>
+					<DropdownMenu right>
+						<DropdownItem onClick={() => setAuth(1)}>Login</DropdownItem>
+						<DropdownItem onClick={()=> setAuth(0)}>Sign Out</DropdownItem>
+					</DropdownMenu>
+				</UncontrolledDropdown>
 				<NavbarToggler onClick={toggle} />
 				<Collapse isOpen={isOpen} navbar>
 					<Nav className="mr-auto" navbar></Nav>
-					<NavbarText className="mr-5">Sign-Up</NavbarText>
+
+					{auth === 1 ? 
+					<NavLink tag={RRNavLink} exact to="/Login" activeClassName="active">
+						Log Out
+					</NavLink> 
+					: 
 					<NavLink tag={RRNavLink} exact to="/Login" activeClassName="active">
 						Login
 					</NavLink>
+					}
+					{auth === 1 ? 
+					<NavLink tag={RRNavLink} exact to="/Login" activeClassName="active">
+					Profile
+					</NavLink> 
+					: 
+					<NavLink tag={RRNavLink} exact to="/Login" activeClassName="active">
+						Sign Up
+					</NavLink>
+					}
+  
 				</Collapse>
 			</Navbar>
 		</div>
