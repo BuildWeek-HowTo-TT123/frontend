@@ -3,7 +3,7 @@
 
 import {React, useState } from 'react'
 import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/core'
-const Login=(props)=>{
+const Login=()=>{
 
     const paperStyle={padding :20,height:'70vh',width:380, margin:"60px auto"}
 	const btnstyle={margin:'20px 0'}
@@ -16,13 +16,8 @@ const Login=(props)=>{
         const {id , value} = e.target   
         setState(prevState => ({
             ...prevState,
-			[id] : value
-
-			
-		})
-		
-		)
-		console.log(value)
+            [id] : value
+        }))
     }
     return(
         <Grid>
@@ -32,7 +27,7 @@ const Login=(props)=>{
                     <h2>Sign In</h2>
                 </Grid>
                 <TextField id="username" value={state.username} onChange={handleChange} label='Username' placeholder='Enter username' fullWidth required/>
-                <TextField  id="password" value={state.password} onChange={handleChange}  label='Password' placeholder='Enter password' type='password' fullWidth required/>
+                <TextField  id="password" value={state.password} onChange={handleChange} label='Password' placeholder='Enter password' type='password' fullWidth required/>
                
                 <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
                 
