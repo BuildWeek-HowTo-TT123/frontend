@@ -3,7 +3,7 @@
 
 import {React, useState } from 'react'
 import { Grid,Paper, TextField, Button, Typography,Link } from '@material-ui/core'
-
+import axios from 'axios';
 
 const Login=(props)=>{
 
@@ -22,21 +22,18 @@ const Login=(props)=>{
       }))
   }
   const login = e => {
-    console.log(e);
-    localStorage.setItem("token", 'samepletoken');
-    props.history.push("/home");
-    /*
-    This code will be used when backend is up
-    axios.post("BACKENDURL/api/login", {username: username, password: password}).
+    //console.log(e);
+    //localStorage.setItem("token", 'samepletoken');
+    //props.history.push("/home");
+    axios.post("https://how-to-lifehack.herokuapp.com/users/login", {username: state.username, password: state.password}).
       then(res => {
         console.log(res);
-        localStorage.setItem("token", res.data.payload);
+        localStorage.setItem("token", res.data.token);
         props.history.push("/home");
       })
       .catch(err => {
         console.log(err);
       });
-    */
   }
   return (
     <Grid>
