@@ -89,7 +89,7 @@ export function UserHome(){
       return (
 		
 			<Card className={classes.card} key={howtoData.id} mx="auto" raised>
-			<CardActionArea component={Link} to={`/howto/:${id}`}>
+			<CardActionArea component={Link} to={`/howto/${id}`}>
 				<CardHeader
 					title={title}
           			subheader={author}
