@@ -11,6 +11,8 @@ import {UserHome} from './Components/UserHome';
 import {HowToForm} from './Components/HowToForm';
 import {HowToPage} from './Components/HowToPage';
 
+import {PrivateRoute} from './Components/Util/PrivateRoute';
+
 function App() {
   return (
 		<Router>
@@ -18,11 +20,14 @@ function App() {
 			<Route exact path="/" component={MainPage} />
 			<Route exact path="/login" component={Login} />
 			<Route exact path="/signup" component={Signup} />
-			<Route exact path="/home" component={UserHome} />
+      <PrivateRoute exact path="/home">
+        <UserHome/>
+      </PrivateRoute>
+			
 			<Route exact path="/create" component={HowToForm} />
 			<Route path="/howto/:id" component={HowToPage} />
 		</Router>
 	);
 }
-
+//<Route exact path="/home" component={UserHome} />
 export default App;

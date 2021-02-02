@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export function UserHome(){
+export const UserHome = (props) =>{
   //This data should be fetched from the server using an axios get request in a useEffect hook that runs on first render
   const [howtoData, setHowToData] = useState([
     {title: "How to brush your teeth", author: "Anonymous", content: "So basically you get a toothbrush", id:0, img: "https://images.pexels.com/photos/298611/pexels-photo-298611.jpeg"},
@@ -71,7 +72,13 @@ export function UserHome(){
     {title: "Other uses for toothpicks", author: "testuser", content: "They aren't just for cleaning your teeth.", id:2, img: "https://images.pexels.com/photos/434283/pexels-photo-434283.jpeg"},
   ])
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
+  const history = useHistory();
   const classes = useStyles();
+  const logout = () => {
+    localStorage.removeItem("token");
+    alert("You've Logged Out!");
+    history.push("/");
+  }
 	return (
 <div className={classes.cardBG}>
 	<Container maxWidth="lg" className={classes.guideContainer}>
@@ -82,6 +89,9 @@ export function UserHome(){
 			<Button variant="contained" color="secondary" startIcon={<AddIcon />} className={classes.guideCreate}>
 				Create New
 			</Button>
+      <Button onClick={logout}>
+        Log out
+      </Button>
         </Container>
         <Grid container spacing={3} sm={12} md={6} lg={12}>
 			{howtoData.map((howtoData) =>{
