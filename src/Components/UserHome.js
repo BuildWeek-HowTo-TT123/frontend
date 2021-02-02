@@ -1,24 +1,26 @@
 import { React, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'; 
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
-import theme from "../theme";
+import {
+	Card,
+	CardHeader,
+	CardContent,
+	CardActions,
+	IconButton,
+	Typography,
+	Grid,
+	Container,
+	CardActionArea,
+	CardMedia,
+	Button,
+} from "@material-ui/core";
 
-import { BrowserRouter, Link } from "react-router-dom";
-import {HowToPage} from './HowToPage'
+import {
+	Favorite as FavoriteIcon,
+	ArrowForward as ArrowForwardIcon,
+	Add as AddIcon,
+} from "@material-ui/icons";
+import { Link, useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +66,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const UserHome = (props) =>{
+
+export function UserHome(props){
+	const history = useHistory(props);
+
   //This data should be fetched from the server using an axios get request in a useEffect hook that runs on first render
   const [howtoData, setHowToData] = useState([
     {title: "How to brush your teeth", author: "Anonymous", content: "So basically you get a toothbrush", id:0, img: "https://images.pexels.com/photos/298611/pexels-photo-298611.jpeg"},
@@ -74,11 +79,16 @@ export const UserHome = (props) =>{
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
   const history = useHistory();
   const classes = useStyles();
+
   const logout = () => {
     localStorage.removeItem("token");
     alert("You've Logged Out!");
     history.push("/");
   }
+
+  const handleButtonClick = (pageURL) => {
+    history.push(pageURL);
+  };
 	return (
 <div className={classes.cardBG}>
 	<Container maxWidth="lg" className={classes.guideContainer}>
@@ -86,7 +96,7 @@ export const UserHome = (props) =>{
 			<Typography variant="h4" className={classes.guideTitle}>
 			Guides
 			</Typography>
-			<Button variant="contained" color="secondary" startIcon={<AddIcon />} className={classes.guideCreate}>
+			<Button variant="contained" color="secondary" startIcon={<AddIcon />} onClick={() => handleButtonClick("/create")} className={classes.guideCreate} >
 				Create New
 			</Button>
       <Button onClick={logout}>
