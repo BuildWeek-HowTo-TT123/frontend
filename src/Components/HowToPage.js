@@ -12,9 +12,9 @@ export function HowToPage(){
   const params = useParams();
   return(
     <div>
-      <p>Title: {data[params.id].title}</p>
+      {/* <p>Title: {data[params.id].title}</p>
       <p>Author: {data[params.id].author}</p>
-      <p>Content: {data[params.id].content}</p>
+      <p>Content: {data[params.id].content}</p> */}
     </div>
   )
 }
