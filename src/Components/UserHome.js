@@ -70,14 +70,23 @@ const useStyles = makeStyles((theme) => ({
 export function UserHome(props){
 	const history = useHistory(props);
 
-  //This data should be fetched from the server using an axios get request in a useEffect hook that runs on first render
-  const [howtoData, setHowToData] = useState([
-    {title: "How to brush your teeth", author: "Anonymous", content: "So basically you get a toothbrush", id:0, img: "https://images.pexels.com/photos/298611/pexels-photo-298611.jpeg"},
+  //This data should be fetched from the server using an axios get request in a useEffect hook that runs on first rende
+  /*
+  {title: "How to brush your teeth", author: "Anonymous", content: "So basically you get a toothbrush", id:0, img: "https://images.pexels.com/photos/298611/pexels-photo-298611.jpeg"},
     {title: "10 crazy cooking tips!", author: "Epic Youtube Vidz", content: "Click the link to view the video!", id:1, img: "https://images.pexels.com/photos/3298605/pexels-photo-3298605.jpeg"},
     {title: "Other uses for toothpicks", author: "testuser", content: "They aren't just for cleaning your teeth.", id:2, img: "https://images.pexels.com/photos/434283/pexels-photo-434283.jpeg"},
-  ])
+  */
+  const [howtoData, setHowToData] = useState()
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
   //const history = useHistory();
+  useEffect(() => {
+    axiosWithAuth().get('/how-to')
+    .then(res => {
+      setHowToData(res.data)
+      console.log(res);
+    })
+    .catch(err => console.log(err));
+  }, [])
   const classes = useStyles();
 
   const logout = () => {
@@ -104,24 +113,19 @@ export function UserHome(props){
       </Button>
         </Container>
         <Grid container spacing={3} sm={12} md={6} lg={12}>
-			{howtoData.map((howtoData) =>{
-      const { title, author, content, id, img } = howtoData;
+			{howtoData && howtoData.map((howtoData) =>{
+      const { title, user_id, problem, id} = howtoData;
       return (
 		
 			<Card className={classes.card} key={howtoData.id} mx="auto" raised>
 			<CardActionArea component={Link} to={`/howto/${id}`}>
 				<CardHeader
 					title={title}
-          			subheader={author}
+          subheader={user_id}
 				/>
-				<CardMedia
-        			className={classes.media}
-        			image={img}
-        			title="toothbrush"
-      			/>
 				<CardContent>
 					<Typography variant="body2" color="textSecondary" component="p">
-						{content}
+						{problem}
 					</Typography>
 				</CardContent>
 				</CardActionArea>
