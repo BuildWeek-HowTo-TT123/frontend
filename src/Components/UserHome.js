@@ -1,23 +1,25 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'; 
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import {
+	Card,
+	CardHeader,
+	CardContent,
+	CardActions,
+	IconButton,
+	Typography,
+	Grid,
+	Container,
+	CardActionArea,
+	CardMedia,
+	Button,
+} from "@material-ui/core";
 
-
-import { BrowserRouter, Link, useHistory } from "react-router-dom";
-import {HowToPage} from './HowToPage'
+import {
+	Favorite as FavoriteIcon,
+	ArrowForward as ArrowForwardIcon,
+	Add as AddIcon,
+} from "@material-ui/icons";
+import { Link, useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
