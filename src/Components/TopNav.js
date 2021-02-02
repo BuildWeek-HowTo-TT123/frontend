@@ -66,10 +66,6 @@ const Header = (props) => {
 
   const menuItemsLoggedIn = [
 		{
-			menuTitle: "Home",
-			pageURL: "/home",
-		},
-		{
 			menuTitle: "Create New",
 			pageURL: "/create",
 		},
@@ -88,136 +84,138 @@ const Header = (props) => {
 	if(localStorage.getItem('token')) {
 		return (
 			<div className={classes.root}>
-			<AppBar position="static" color="info">
-				<Toolbar>
-					<IconButton color="inherit">
-						<HomeIcon onClick={() => handleButtonClick("/")} fontSize="large" />
-					</IconButton>
-					{isMobile ? (
-						<>
-							<IconButton
-								edge="start"
-								className={classes.menuButton}
-								color="inherit"
-								aria-label="menu"
-								onClick={handleMenu}
-							>
-								<MenuIcon />
-							</IconButton>
-							<Menu
-								id="menu-appbar"
-								anchorEl={anchorEl}
-								anchorOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
-								keepMounted
-								transformOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
-								open={open}
-								onClose={() => setAnchorEl(null)}
-							>
+				<AppBar position="static" color="info">
+					<Toolbar>
+						<IconButton color="inherit">
+							<HomeIcon
+								onClick={() => handleButtonClick("/home")}
+								fontSize="large"
+							/>
+						</IconButton>
+						{isMobile ? (
+							<>
+								<IconButton
+									edge="start"
+									className={classes.menuButton}
+									color="inherit"
+									aria-label="menu"
+									onClick={handleMenu}
+								>
+									<MenuIcon />
+								</IconButton>
+								<Menu
+									id="menu-appbar"
+									anchorEl={anchorEl}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									keepMounted
+									transformOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									open={open}
+									onClose={() => setAnchorEl(null)}
+								>
+									{menuItemsLoggedIn.map((menuItem) => {
+										const { menuTitle, pageURL } = menuItem;
+										return (
+											<MenuItem onClick={() => handleMenuClick(pageURL)}>
+												{menuTitle}
+											</MenuItem>
+										);
+									})}
+								</Menu>
+							</>
+						) : (
+							<div className={classes.headerOptions}>
 								{menuItemsLoggedIn.map((menuItem) => {
 									const { menuTitle, pageURL } = menuItem;
 									return (
-										<MenuItem onClick={() => handleMenuClick(pageURL)}>
+										<Button
+											color="inherit"
+											onClick={() => handleButtonClick(pageURL)}
+										>
 											{menuTitle}
-										</MenuItem>
+										</Button>
 									);
 								})}
-							</Menu>
-						</>
-					) : (
-						<div className={classes.headerOptions}>
-							{menuItemsLoggedIn.map((menuItem) => {
-								const { menuTitle, pageURL } = menuItem;
-								return (
-									<Button
-										color="inherit"
-										onClick={() => handleButtonClick(pageURL)}
-									>
-										{menuTitle}
-									</Button>
-								);
-							})}
-							<Button 
-								color="inherit"
-								onClick={() => logout()}
-							>
-								Sign Out
-							</Button>
-						</div>
-					)}
-				</Toolbar>
-			</AppBar>
-		</div>
-	);
+								<Button color="inherit" onClick={() => logout()}>
+									Sign Out
+								</Button>
+							</div>
+						)}
+					</Toolbar>
+				</AppBar>
+			</div>
+		);
 	  } else {
 		return (
 			<div className={classes.root}>
-			<AppBar position="static" color="info">
-				<Toolbar>
-					<IconButton color="inherit">
-						<HomeIcon onClick={() => handleButtonClick("/")} fontSize="large" />
-					</IconButton>
-					{isMobile ? (
-						<>
-							<IconButton
-								edge="start"
-								className={classes.menuButton}
-								color="inherit"
-								aria-label="menu"
-								onClick={handleMenu}
-							>
-								<MenuIcon />
-							</IconButton>
-							<Menu
-								id="menu-appbar"
-								anchorEl={anchorEl}
-								anchorOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
-								keepMounted
-								transformOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
-								open={open}
-								onClose={() => setAnchorEl(null)}
-							>
+				<AppBar position="static" color="info">
+					<Toolbar>
+						<IconButton color="inherit">
+							<HomeIcon
+								onClick={() => handleButtonClick("/")}
+								fontSize="large"
+							/>
+						</IconButton>
+						{isMobile ? (
+							<>
+								<IconButton
+									edge="start"
+									className={classes.menuButton}
+									color="inherit"
+									aria-label="menu"
+									onClick={handleMenu}
+								>
+									<MenuIcon />
+								</IconButton>
+								<Menu
+									id="menu-appbar"
+									anchorEl={anchorEl}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									keepMounted
+									transformOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									open={open}
+									onClose={() => setAnchorEl(null)}
+								>
+									{menuItemsLoggedOut.map((menuItem) => {
+										const { menuTitle, pageURL } = menuItem;
+										return (
+											<MenuItem onClick={() => handleMenuClick(pageURL)}>
+												{menuTitle}
+											</MenuItem>
+										);
+									})}
+								</Menu>
+							</>
+						) : (
+							<div className={classes.headerOptions}>
 								{menuItemsLoggedOut.map((menuItem) => {
 									const { menuTitle, pageURL } = menuItem;
 									return (
-										<MenuItem onClick={() => handleMenuClick(pageURL)}>
+										<Button
+											color="inherit"
+											onClick={() => handleButtonClick(pageURL)}
+										>
 											{menuTitle}
-										</MenuItem>
+										</Button>
 									);
 								})}
-							</Menu>
-						</>
-					) : (
-						<div className={classes.headerOptions}>
-							{menuItemsLoggedOut.map((menuItem) => {
-								const { menuTitle, pageURL } = menuItem;
-								return (
-									<Button
-										color="inherit"
-										onClick={() => handleButtonClick(pageURL)}
-									>
-										{menuTitle}
-									</Button>
-								);
-							})}
-							
-						</div>
-					)}
-				</Toolbar>
-			</AppBar>
-		</div>
-	);
+							</div>
+						)}
+					</Toolbar>
+				</AppBar>
+			</div>
+		);
 	  }
   }
   
