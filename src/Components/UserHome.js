@@ -1,5 +1,4 @@
 import { React, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
 	Card,
@@ -77,7 +76,7 @@ export function UserHome(props){
     {title: "Other uses for toothpicks", author: "testuser", content: "They aren't just for cleaning your teeth.", id:2, img: "https://images.pexels.com/photos/434283/pexels-photo-434283.jpeg"},
   ])
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
-  const history = useHistory();
+  //const history = useHistory();
   const classes = useStyles();
 
   const logout = () => {
