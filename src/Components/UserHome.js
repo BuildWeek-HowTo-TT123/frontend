@@ -89,12 +89,6 @@ export function UserHome(props){
   }, [])
   const classes = useStyles();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    alert("You've Logged Out!");
-    history.push("/");
-  }
-
   const handleButtonClick = (pageURL) => {
     history.push(pageURL);
   };
@@ -108,9 +102,6 @@ export function UserHome(props){
 			<Button variant="contained" color="secondary" startIcon={<AddIcon />} onClick={() => handleButtonClick("/create")} className={classes.guideCreate} >
 				Create New
 			</Button>
-      <Button onClick={logout}>
-        Log out
-      </Button>
         </Container>
         <Grid container spacing={3} sm={12} md={6} lg={12}>
 			{howtoData && howtoData.map((howtoData) =>{

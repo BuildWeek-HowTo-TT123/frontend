@@ -58,7 +58,13 @@ const Header = (props) => {
     history.push(pageURL);
   };
 
-  const menuItems = [
+  const logout = () => {
+    localStorage.removeItem("token");
+    alert("You've Logged Out!");
+    history.push("/");
+  }
+
+  const menuItemsLoggedIn = [
 		{
 			menuTitle: "Home",
 			pageURL: "/home",
@@ -67,6 +73,8 @@ const Header = (props) => {
 			menuTitle: "Create New",
 			pageURL: "/create",
 		},
+	];
+	const menuItemsLoggedOut = [
 		{
 			menuTitle: "Login",
 			pageURL: "/login",
@@ -77,9 +85,9 @@ const Header = (props) => {
 			pageURL: "/signup",
 		},
 	];
-
-  return (
-		<div className={classes.root}>
+	if(localStorage.getItem('token')) {
+		return (
+			<div className={classes.root}>
 			<AppBar position="static" color="info">
 				<Toolbar>
 					<IconButton color="inherit">
@@ -111,7 +119,7 @@ const Header = (props) => {
 								open={open}
 								onClose={() => setAnchorEl(null)}
 							>
-								{menuItems.map((menuItem) => {
+								{menuItemsLoggedIn.map((menuItem) => {
 									const { menuTitle, pageURL } = menuItem;
 									return (
 										<MenuItem onClick={() => handleMenuClick(pageURL)}>
@@ -123,7 +131,7 @@ const Header = (props) => {
 						</>
 					) : (
 						<div className={classes.headerOptions}>
-							{menuItems.map((menuItem) => {
+							{menuItemsLoggedIn.map((menuItem) => {
 								const { menuTitle, pageURL } = menuItem;
 								return (
 									<Button
@@ -134,12 +142,84 @@ const Header = (props) => {
 									</Button>
 								);
 							})}
+							<Button 
+								color="inherit"
+								onClick={() => logout()}
+							>
+								Sign Out
+							</Button>
 						</div>
 					)}
 				</Toolbar>
 			</AppBar>
 		</div>
 	);
-};
+	  } else {
+		return (
+			<div className={classes.root}>
+			<AppBar position="static" color="info">
+				<Toolbar>
+					<IconButton color="inherit">
+						<HomeIcon onClick={() => handleButtonClick("/")} fontSize="large" />
+					</IconButton>
+					{isMobile ? (
+						<>
+							<IconButton
+								edge="start"
+								className={classes.menuButton}
+								color="inherit"
+								aria-label="menu"
+								onClick={handleMenu}
+							>
+								<MenuIcon />
+							</IconButton>
+							<Menu
+								id="menu-appbar"
+								anchorEl={anchorEl}
+								anchorOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								open={open}
+								onClose={() => setAnchorEl(null)}
+							>
+								{menuItemsLoggedOut.map((menuItem) => {
+									const { menuTitle, pageURL } = menuItem;
+									return (
+										<MenuItem onClick={() => handleMenuClick(pageURL)}>
+											{menuTitle}
+										</MenuItem>
+									);
+								})}
+							</Menu>
+						</>
+					) : (
+						<div className={classes.headerOptions}>
+							{menuItemsLoggedOut.map((menuItem) => {
+								const { menuTitle, pageURL } = menuItem;
+								return (
+									<Button
+										color="inherit"
+										onClick={() => handleButtonClick(pageURL)}
+									>
+										{menuTitle}
+									</Button>
+								);
+							})}
+							
+						</div>
+					)}
+				</Toolbar>
+			</AppBar>
+		</div>
+	);
+	  }
+  }
+  
 
 export default withRouter(Header);
