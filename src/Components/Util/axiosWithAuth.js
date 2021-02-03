@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const axiosWithAuth =() => {
-    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.token;
 
     return axios.create({
       baseURL: "https://how-to-lifehack.herokuapp.com",

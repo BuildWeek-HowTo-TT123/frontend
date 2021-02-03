@@ -28,7 +28,7 @@ const Login=(props)=>{
     axios.post("https://how-to-lifehack.herokuapp.com/users/login", {username: state.username, password: state.password}).
       then(res => {
         console.log(res);
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data));
         props.history.push("/home", {user: res.data});
       })
       .catch(err => {

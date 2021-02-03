@@ -59,7 +59,7 @@ const Header = (props) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     alert("You've Logged Out!");
     history.push("/");
   }
@@ -81,7 +81,7 @@ const Header = (props) => {
 			pageURL: "/signup",
 		},
 	];
-	if(localStorage.getItem('token')) {
+	if(localStorage.getItem('user')) {
 		return (
 			<div className={classes.root}>
 				<AppBar position="static" color="info">

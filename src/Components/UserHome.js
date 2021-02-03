@@ -71,9 +71,10 @@ export function UserHome(props){
   const history = useHistory(props);
   const location = useLocation(props);
   const [howtoData, setHowToData] = useState();
-  const [userInfo, setUserInfo] = useState(location.state.user);
+  const [userInfo, setUserInfo] = useState();
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
   useEffect(() => {
+    setUserInfo(location.state.user);
     axiosWithAuth().get('/how-to')
     .then(res => {
       setHowToData(res.data)

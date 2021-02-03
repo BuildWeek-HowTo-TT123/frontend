@@ -22,7 +22,7 @@ const Signup=(props)=>{
       axios.post("https://how-to-lifehack.herokuapp.com/users/register", {username: state.username, password: state.password, allowPost: true})
        .then(res => {
           console.log(res);
-          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(res.data));
           props.history.push("/home", {user: res.data});
         })
         .catch(err => {
