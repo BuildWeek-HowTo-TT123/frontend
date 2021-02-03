@@ -1,32 +1,55 @@
-import React, { useState } from "react";
-import { NavLink as RRNavLink } from "react-router-dom";
+import React from "react";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
-	Collapse,
-	Navbar,
-	NavbarToggler,
-	NavbarBrand,
-	Nav,
-	NavLink,
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-	
-} from "reactstrap";
+	AppBar,
+	Toolbar,
+	IconButton,
+	MenuItem,
+	Menu,
+	Button,
+} from "@material-ui/core/";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { withRouter, useHistory } from "react-router-dom";
+import { Home as HomeIcon, Menu as MenuIcon } from "@material-ui/icons";
 
 
 
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+		flexGrow: 1,
+	},
+	menuButton: {
+		marginRight: theme.spacing(2),
+	},
+	title: {
+		[theme.breakpoints.down("xs")]: {
+			flexGrow: 1,
+		},
+	},
+	headerOptions: {
+		display: "flex",
+		marginLeft: "auto",
+		justifyContent: "space-around",
+	},
+	active: {
+		color: "primary",
+	},
+}));
 
-const TopNav = () => {
-	
-	const [auth, setAuth] = useState(0)
-	const [isOpen, setIsOpen] = useState(false);
+const Header = (props) => {
+  const history = useHistory(props);
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
-	function toggle() {
-		return setIsOpen(!isOpen);
-	}
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
+<<<<<<< HEAD
 	return (
 		<div>
 			<Navbar color="light" light expand="md">
@@ -43,30 +66,177 @@ const TopNav = () => {
 				<NavbarToggler onClick={toggle} />
 				<Collapse isOpen={isOpen} navbar>
 					<Nav className="mr-auto" navbar></Nav>
+=======
+  const handleMenuClick = (pageURL) => {
+    history.push(pageURL);
+    setAnchorEl(null);
+  };
+>>>>>>> 18766d865c4cbdd9f4c9291a1cae5787c3e29e3e
 
-					{auth === 1 ? 
-					<NavLink tag={RRNavLink} exact to="/Login" activeClassName="active">
-						Log Out
-					</NavLink> 
-					: 
-					<NavLink tag={RRNavLink} exact to="/Login" activeClassName="active">
-						Login
-					</NavLink>
-					}
-					{auth === 1 ? 
-					<NavLink tag={RRNavLink} exact to="/Login" activeClassName="active">
-					Profile
-					</NavLink> 
-					: 
-					<NavLink tag={RRNavLink} exact to="/Login" activeClassName="active">
-						Sign Up
-					</NavLink>
-					}
+  const handleButtonClick = (pageURL) => {
+    history.push(pageURL);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    alert("You've Logged Out!");
+    history.push("/");
+  }
+
+  const menuItemsLoggedIn = [
+		{
+			menuTitle: "Create New",
+			pageURL: "/create",
+		},
+	];
+	const menuItemsLoggedOut = [
+		{
+			menuTitle: "Login",
+			pageURL: "/login",
+		},
+
+		{
+			menuTitle: "Sign Up",
+			pageURL: "/signup",
+		},
+	];
+	if(localStorage.getItem('user')) {
+		return (
+			<div className={classes.root}>
+				<AppBar position="static" color="info">
+					<Toolbar>
+						<IconButton color="inherit">
+							<HomeIcon
+								onClick={() => handleButtonClick("/home")}
+								fontSize="large"
+							/>
+						</IconButton>
+						{isMobile ? (
+							<>
+								<IconButton
+									edge="start"
+									className={classes.menuButton}
+									color="inherit"
+									aria-label="menu"
+									onClick={handleMenu}
+								>
+									<MenuIcon />
+								</IconButton>
+								<Menu
+									id="menu-appbar"
+									anchorEl={anchorEl}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									keepMounted
+									transformOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									open={open}
+									onClose={() => setAnchorEl(null)}
+								>
+									{menuItemsLoggedIn.map((menuItem) => {
+										const { menuTitle, pageURL } = menuItem;
+										return (
+											<MenuItem onClick={() => handleMenuClick(pageURL)}>
+												{menuTitle}
+											</MenuItem>
+										);
+									})}
+								</Menu>
+							</>
+						) : (
+							<div className={classes.headerOptions}>
+								{menuItemsLoggedIn.map((menuItem) => {
+									const { menuTitle, pageURL } = menuItem;
+									return (
+										<Button
+											color="inherit"
+											onClick={() => handleButtonClick(pageURL)}
+										>
+											{menuTitle}
+										</Button>
+									);
+								})}
+								<Button color="inherit" onClick={() => logout()}>
+									Sign Out
+								</Button>
+							</div>
+						)}
+					</Toolbar>
+				</AppBar>
+			</div>
+		);
+	  } else {
+		return (
+			<div className={classes.root}>
+				<AppBar position="static" color="info">
+					<Toolbar>
+						<IconButton color="inherit">
+							<HomeIcon
+								onClick={() => handleButtonClick("/")}
+								fontSize="large"
+							/>
+						</IconButton>
+						{isMobile ? (
+							<>
+								<IconButton
+									edge="start"
+									className={classes.menuButton}
+									color="inherit"
+									aria-label="menu"
+									onClick={handleMenu}
+								>
+									<MenuIcon />
+								</IconButton>
+								<Menu
+									id="menu-appbar"
+									anchorEl={anchorEl}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									keepMounted
+									transformOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									open={open}
+									onClose={() => setAnchorEl(null)}
+								>
+									{menuItemsLoggedOut.map((menuItem) => {
+										const { menuTitle, pageURL } = menuItem;
+										return (
+											<MenuItem onClick={() => handleMenuClick(pageURL)}>
+												{menuTitle}
+											</MenuItem>
+										);
+									})}
+								</Menu>
+							</>
+						) : (
+							<div className={classes.headerOptions}>
+								{menuItemsLoggedOut.map((menuItem) => {
+									const { menuTitle, pageURL } = menuItem;
+									return (
+										<Button
+											color="inherit"
+											onClick={() => handleButtonClick(pageURL)}
+										>
+											{menuTitle}
+										</Button>
+									);
+								})}
+							</div>
+						)}
+					</Toolbar>
+				</AppBar>
+			</div>
+		);
+	  }
+  }
   
-				</Collapse>
-			</Navbar>
-		</div>
-	);
-};
 
-export default TopNav;
+export default withRouter(Header);
