@@ -84,7 +84,10 @@ export function UserHome(props){
   const classes = useStyles();
 
   const handleButtonClick = (pageURL) => {
-    history.push(pageURL);
+    if(pageURL === "/create")
+      history.push(pageURL, {user: userInfo});
+    else
+      history.push(pageURL);
   };
 	return (
 <div className={classes.cardBG}>
