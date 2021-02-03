@@ -1,36 +1,11 @@
-import logo from './logo.svg';
-import "./App.scss";
-import TopNav from "./Components/TopNav";
-
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "./Components/Login";
-import {Signup} from './Components/Signup';
-import {MainPage} from './Components/MainPage';
-import {UserHome} from './Components/UserHome';
-// import AddHowToForm from './HowToComponent/AddHowToForm';
-// import HowToPage from './HowToComponent/HowToPage';
-
-
-		// <Router>
-		// <TopNav/>
-		// 	<Route exact path="/" component={MainPage} />
-		// 	<Route exact path="/login" component={Login} />
-		// 	<Route exact path="/signup" component={Signup} />
-		// 	<Route exact path="/home" component={UserHome} />
-      	// 	{/* <Route exact path="/create" component={AddHowToForm} /> */}
-      	// 	{/* <Route path="/HowToPage/:id" component={HowToPage}/> */}
-		// </Router>
-
-
-
 import React, { useState, Component } from "react";
-import HowTos from './HowToComponent/HowTos';
-import AddHowToForm from './HowToComponent/AddHowToForm';
+import HowTos from './HowTos';
+import AddHowToForm from './AddHowToForm';
 import axios from 'axios';
 
-// import {BrowserRouter as Router, Route, Link, useParams } from "react-router-dom";
+import {BrowserRouter as Router, Route, Link, useParams } from "react-router-dom";
 
-  class App extends Component {
+ export default class HomeToPage extends Component {
   state = {
     howTos: []
   }
@@ -58,13 +33,13 @@ import axios from 'axios';
     })})
 }
 /// Delete Todo
-delTodo = (id) => {
+delHowTo = (id) => {
   axios.delete(`https://jsonplaceholder.typicode.com/howTos/${id}`)
   .then(res => this.setState({ howTos: [...this.state.howTos.filter
   (howto => howto.id !== id)] }));
 }
 /// Add Todo
-AddTodo = (title) => {
+AddHowToForm = (title) => {
  axios.post('https://jsonplaceholder.typicode.com/howTos',{
    title,
    completed: false,
@@ -97,21 +72,15 @@ render(){
       <p>Author: {data[params.id].author}</p>
       <p>Content: {data[params.id].content}</p>
     </div> */}
-	<TopNav/>
-			<Route exact path="/" component={MainPage} />
-			<Route exact path="/login" component={Login} />
-			<Route exact path="/signup" component={Signup} />
-			<Route exact path="/home" component={UserHome} />
      
       <Route exact path="/" render={props => (
       <React.Fragment>
         <AddHowToForm AddHowToForm={this.AddHowToForm} />
         <HowTos howTos={this.state.howTos}
          markComplete={this.markComplete} 
-         delTodo={this.delTodo} />
+         delHowTo={this.delHowTo} />
       </React.Fragment>
       )} />
-      {/* <Route path='/about' component={About} /> */}
       </div>
      
     </div>
@@ -119,6 +88,3 @@ render(){
      );
   }
 }
-
-
-export default App;

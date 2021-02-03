@@ -30,7 +30,7 @@ const TopNav = () => {
 	return (
 		<div>
 			<Navbar color="light" light expand="md">
-				<NavbarBrand tag={RRNavLink} exact to={auth === 1 ? "/home" : "/"}>How-To</NavbarBrand>
+				<NavbarBrand tag={RRNavLink} exact to={auth === 1 ? "/HowToPage" : "/"}>How-To</NavbarBrand>
 				<UncontrolledDropdown>
 					<DropdownToggle nav caret>
 						Developer
