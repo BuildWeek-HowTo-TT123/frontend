@@ -23,7 +23,7 @@ const Signup=(props)=>{
        .then(res => {
           console.log(res);
           localStorage.setItem("token", res.data.token);
-          props.history.push("/home");
+          props.history.push("/home", {user: res.data});
         })
         .catch(err => {
           console.log(err);
