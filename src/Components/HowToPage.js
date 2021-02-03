@@ -18,8 +18,8 @@ export function HowToPage(){
     return <div>LOADING!</div>
   else
     return(
-      <div>
-        <p>Title: {data.title}</p>
+      <div style={{"text-align": "center"}}>
+        <h1>{data.title}</h1>
         <p>Author: {data.user_id}</p>
         <p>Problem: {data.problem}</p> 
         <p>Solution: {data.solution}</p> 
