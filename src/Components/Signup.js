@@ -19,7 +19,7 @@ const Signup=(props)=>{
         }))
     }
     const signup = e => {
-      axios.post("https://how-to-lifehack.herokuapp.com/users/register", {username: state.username, password: state.password})
+      axios.post("https://how-to-lifehack.herokuapp.com/users/register", {username: state.username, password: state.password, allowPost: true})
        .then(res => {
           console.log(res);
           localStorage.setItem("token", res.data.token);
