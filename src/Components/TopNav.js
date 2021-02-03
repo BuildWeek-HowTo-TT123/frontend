@@ -49,29 +49,10 @@ const Header = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
-<<<<<<< HEAD
-	return (
-		<div>
-			<Navbar color="light" light expand="md">
-				<NavbarBrand tag={RRNavLink} exact to={auth === 1 ? "/HowToPage" : "/"}>How-To</NavbarBrand>
-				<UncontrolledDropdown>
-					<DropdownToggle nav caret>
-						Developer
-					</DropdownToggle>
-					<DropdownMenu right>
-						<DropdownItem onClick={() => setAuth(1)}>Login</DropdownItem>
-						<DropdownItem onClick={()=> setAuth(0)}>Sign Out</DropdownItem>
-					</DropdownMenu>
-				</UncontrolledDropdown>
-				<NavbarToggler onClick={toggle} />
-				<Collapse isOpen={isOpen} navbar>
-					<Nav className="mr-auto" navbar></Nav>
-=======
   const handleMenuClick = (pageURL) => {
     history.push(pageURL);
     setAnchorEl(null);
   };
->>>>>>> 18766d865c4cbdd9f4c9291a1cae5787c3e29e3e
 
   const handleButtonClick = (pageURL) => {
     history.push(pageURL);

@@ -9,21 +9,12 @@
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
     "axios": "^0.21.1",
-<<<<<<< HEAD
-    "bootstrap": "^4.6.0",
-=======
->>>>>>> 18766d865c4cbdd9f4c9291a1cae5787c3e29e3e
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-<<<<<<< HEAD
-    "reactstrap": "^8.9.0",
-    "sass": "^1.32.5",
-=======
     "typeface-roboto": "^1.1.13",
->>>>>>> 18766d865c4cbdd9f4c9291a1cae5787c3e29e3e
     "web-vitals": "^0.2.4"
   },
   "scripts": {

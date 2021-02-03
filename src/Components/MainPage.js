@@ -25,11 +25,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function MainPage(){
-<<<<<<< HEAD
-  return <>
-
-  </>;
-=======
   const classes = useStyles();
 	return (
 		<>
@@ -38,5 +33,4 @@ export function MainPage(){
 			</Box>
 		</>
 	);
->>>>>>> 18766d865c4cbdd9f4c9291a1cae5787c3e29e3e
 }
