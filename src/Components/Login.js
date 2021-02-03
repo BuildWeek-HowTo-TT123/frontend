@@ -29,7 +29,7 @@ const Login=(props)=>{
       then(res => {
         console.log(res);
         localStorage.setItem("user", JSON.stringify(res.data));
-        props.history.push("/home", {user: res.data});
+        props.history.push("/home");
       })
       .catch(err => {
         console.log(err);

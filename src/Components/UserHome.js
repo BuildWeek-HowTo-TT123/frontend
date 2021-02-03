@@ -69,12 +69,12 @@ const useStyles = makeStyles((theme) => ({
 
 export function UserHome(props){
   const history = useHistory(props);
-  const location = useLocation(props);
+  //const location = useLocation(props);
   const [howtoData, setHowToData] = useState();
-  const [userInfo, setUserInfo] = useState();
+  //const [userInfo, setUserInfo] = useState(localStorage.getItem('user'));
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
   useEffect(() => {
-    setUserInfo(location.state.user);
+    //setUserInfo(location.state.user);
     axiosWithAuth().get('/how-to')
     .then(res => {
       setHowToData(res.data)
@@ -86,7 +86,7 @@ export function UserHome(props){
 
   const handleButtonClick = (pageURL) => {
     if(pageURL === "/create")
-      history.push(pageURL, {user: userInfo});
+      history.push(pageURL);
     else
       history.push(pageURL);
   };
