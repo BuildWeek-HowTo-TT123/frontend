@@ -9,32 +9,59 @@
 // }
 
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-export class HowToForm extends Component {
-    constructor(){
-        super();
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-    state = {
-        title: ''
-    }
-    onSubmit = (e) => {
+import {axiosWithAuth} from './Util/axiosWithAuth';
+
+import { history, useHistory } from "react-router-dom";
+
+export function HowToForm(props){
+    const [formState, setFormState] = useState({
+      title: '',
+      problem: '',
+      solution: '',
+      username: JSON.parse(localStorage.getItem('user')).username,
+      user_id: JSON.parse(localStorage.getItem('user')).id
+    })  
+    const history = useHistory(props);
+    const onSubmit = (e) => {
+        console.log("hello");
         e.preventDefault();
-        this.props.HowToForm(this.state.title);
-        this.setState({title: ''});
+        axiosWithAuth().post(`/how-to`, {title: formState.title, problem: formState.problem, solution:formState.solution, topic: formState.username, user_id: formState.user_id})
+        .then(res => {
+          console.log(res);
+          history.push("/home");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
-    onChange = (e) => this.setState({ [e.target.name]:  e.target.value});
-    render() {
+    const onChange = (e) => setFormState({...formState, [e.target.name]:  e.target.value});
         return (
-           <form onSubmit={this.onSubmit} style={{display: 'flex' }}>
+           <form onSubmit={onSubmit} style={{display: 'flex' }}>
                <input 
                type='text'
                name='title'
-               placeholder='Add How To ...'
+               placeholder='Title'
                style={{flex: '10', padding: '5px'}}
-               value={this.state.title}
-               onChange={this.onChange}
+               value={formState.title}
+               onChange={onChange}
+               />
+               <input 
+               type='text'
+               name='problem'
+               placeholder='Problem'
+               style={{flex: '10', padding: '5px'}}
+               value={formState.problem}
+               onChange={onChange}
+               />
+               <input 
+               type='text'
+               name='solution'
+               placeholder='Solution'
+               style={{flex: '10', padding: '5px'}}
+               value={formState.solution}
+               onChange={onChange}
                />
                <input
                type='submit'
@@ -44,5 +71,5 @@ export class HowToForm extends Component {
                />
            </form>
         )
-    }
+    
 }
