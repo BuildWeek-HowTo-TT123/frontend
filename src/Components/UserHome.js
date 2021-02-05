@@ -69,16 +69,36 @@ const useStyles = makeStyles((theme) => ({
 
 export function UserHome(props){
   const history = useHistory(props);
-  //const location = useLocation(props);
   const [howtoData, setHowToData] = useState();
-  //const [userInfo, setUserInfo] = useState(localStorage.getItem('user'));
+  const [pages, setPages] = useState();
+  const [currentPage, setCurrentPage] = useState(0);
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
+  const setUpPages = (data) =>{
+    let page = 0;
+    let pageArray = [];
+    data.forEach(howto => {
+      if(!pageArray[page]){
+        pageArray[page] = [];
+      }   
+      else if(pageArray[page].length === 6){
+        page++;
+        pageArray[page] = [];
+      }
+      pageArray[page].push(howto)
+    });
+    setPages(pageArray);
+  }
+  const changePage = (which) =>{
+    if(which === "next" && pages.length > currentPage+1)
+      setCurrentPage(currentPage+1);
+    else if(which === "previous" && currentPage !== 0)
+      setCurrentPage(currentPage-1);
+  }
   useEffect(() => {
-    //setUserInfo(location.state.user);
     axiosWithAuth().get('/how-to')
     .then(res => {
-      setHowToData(res.data)
-      //console.log(res);
+      setHowToData(res.data);
+      setUpPages(res.data);
     })
     .catch(err => console.log(err));
   }, [])
@@ -99,7 +119,7 @@ export function UserHome(props){
 			</Button>
         </Container>
         <Grid container spacing={3} sm={12} md={6} lg={12}>
-			{howtoData && howtoData.map((howtoData) =>{
+			{pages && pages[currentPage].map((howtoData) =>{
       const { title, user_id, problem, id, topic} = howtoData;
       return (
 		
@@ -129,6 +149,8 @@ export function UserHome(props){
       );
       })}
 	  </Grid>	
+    <Button onClick={() => changePage("previous")}>Previous page</Button>
+    <Button onClick={() => changePage("next")}>Next page</Button>
 	  </Container>
 	</div>
 	);
