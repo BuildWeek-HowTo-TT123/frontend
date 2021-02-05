@@ -9,65 +9,59 @@
 // }
 
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import {axiosWithAuth} from './Util/axiosWithAuth';
 
-import { useHistory } from "react-router-dom";
+import { history, useHistory } from "react-router-dom";
 
-export class HowToForm extends Component {
-    constructor(props){
-        super(props);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-    state = {
-        title: '',
-        problem: '',
-        solution: '',
-        username: JSON.parse(localStorage.getItem('user')).username,
-        user_id: JSON.parse(localStorage.getItem('user')).id
-    }
-    onSubmit = (e) => {
+export function HowToForm(props){
+    const [formState, setFormState] = useState({
+      title: '',
+      problem: '',
+      solution: '',
+      username: JSON.parse(localStorage.getItem('user')).username,
+      user_id: JSON.parse(localStorage.getItem('user')).id
+    })  
+    const history = useHistory(props);
+    const onSubmit = (e) => {
         console.log("hello");
         e.preventDefault();
-        axiosWithAuth().post(`/how-to`, {title: this.state.title, problem: this.state.problem, solution: this.state.solution, topic: this.state.username, user_id: this.state.user_id})
+        axiosWithAuth().post(`/how-to`, {title: formState.title, problem: formState.problem, solution:formState.solution, topic: formState.username, user_id: formState.user_id})
         .then(res => {
           console.log(res);
-          this.props.history.push("/home");
+          history.push("/home");
         })
         .catch(err => {
           console.log(err);
         });
-        //this.props.HowToForm(this.state.title);
-        //this.setState({title: ''});
     }
-    onChange = (e) => this.setState({ [e.target.name]:  e.target.value});
-    render() {
+    const onChange = (e) => setFormState({...formState, [e.target.name]:  e.target.value});
         return (
-           <form onSubmit={this.onSubmit} style={{display: 'flex' }}>
+           <form onSubmit={onSubmit} style={{display: 'flex' }}>
                <input 
                type='text'
                name='title'
                placeholder='Title'
                style={{flex: '10', padding: '5px'}}
-               value={this.state.title}
-               onChange={this.onChange}
+               value={formState.title}
+               onChange={onChange}
                />
                <input 
                type='text'
                name='problem'
                placeholder='Problem'
                style={{flex: '10', padding: '5px'}}
-               value={this.state.problem}
-               onChange={this.onChange}
+               value={formState.problem}
+               onChange={onChange}
                />
                <input 
                type='text'
                name='solution'
                placeholder='Solution'
                style={{flex: '10', padding: '5px'}}
-               value={this.state.solution}
-               onChange={this.onChange}
+               value={formState.solution}
+               onChange={onChange}
                />
                <input
                type='submit'
@@ -77,5 +71,5 @@ export class HowToForm extends Component {
                />
            </form>
         )
-    }
+    
 }

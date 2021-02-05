@@ -100,14 +100,14 @@ export function UserHome(props){
         </Container>
         <Grid container spacing={3} sm={12} md={6} lg={12}>
 			{howtoData && howtoData.map((howtoData) =>{
-      const { title, user_id, problem, id} = howtoData;
+      const { title, user_id, problem, id, topic} = howtoData;
       return (
 		
 			<Card className={classes.card} key={howtoData.id} mx="auto" raised>
 			<CardActionArea component={Link} to={`/howto/${id}`}>
 				<CardHeader
 					title={title}
-          subheader={user_id}
+          subheader={topic}
 				/>
 				<CardContent>
 					<Typography variant="body2" color="textSecondary" component="p">
