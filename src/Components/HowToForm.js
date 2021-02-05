@@ -13,9 +13,11 @@ import React, { Component } from 'react';
 
 import {axiosWithAuth} from './Util/axiosWithAuth';
 
+import { useHistory } from "react-router-dom";
+
 export class HowToForm extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
     state = {
@@ -26,9 +28,18 @@ export class HowToForm extends Component {
         user_id: JSON.parse(localStorage.getItem('user')).id
     }
     onSubmit = (e) => {
+        console.log("hello");
         e.preventDefault();
+        axiosWithAuth().post(`/how-to`, {title: this.state.title, problem: this.state.problem, solution: this.state.solution, topic: this.state.username, user_id: this.state.user_id})
+        .then(res => {
+          console.log(res);
+          this.props.history.push("/home");
+        })
+        .catch(err => {
+          console.log(err);
+        });
         //this.props.HowToForm(this.state.title);
-        this.setState({title: ''});
+        //this.setState({title: ''});
     }
     onChange = (e) => this.setState({ [e.target.name]:  e.target.value});
     render() {

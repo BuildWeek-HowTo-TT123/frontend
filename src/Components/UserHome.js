@@ -85,9 +85,6 @@ export function UserHome(props){
   const classes = useStyles();
 
   const handleButtonClick = (pageURL) => {
-    if(pageURL === "/create")
-      history.push(pageURL);
-    else
       history.push(pageURL);
   };
 	return (
