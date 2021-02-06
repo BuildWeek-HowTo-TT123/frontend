@@ -70,10 +70,13 @@ const useStyles = makeStyles((theme) => ({
 export function UserHome(props){
   const history = useHistory(props);
   const [howtoData, setHowToData] = useState();
+  const [searchResults, setSearchResults] = useState();
   const [pages, setPages] = useState();
   const [currentPage, setCurrentPage] = useState(0);
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
   const setUpPages = (data) =>{
+    if(!data)
+      return;
     let page = 0;
     let pageArray = [];
     data.forEach(howto => {
@@ -98,15 +101,28 @@ export function UserHome(props){
     axiosWithAuth().get('/how-to')
     .then(res => {
       setHowToData(res.data);
-      setUpPages(res.data);
+      setSearchResults(res.data);
+      
     })
     .catch(err => console.log(err));
   }, [])
+  useEffect(() => {
+    setUpPages(searchResults);
+  }, [searchResults])
   const classes = useStyles();
 
   const handleButtonClick = (pageURL) => {
       history.push(pageURL);
   };
+
+  const searchFilter = (e) => {
+    console.log(e.target.value);
+    setSearchResults(
+      howtoData.filter((howto) => {
+        return howto.title.includes(e.target.value)
+      })
+    )
+  }
 	return (
 <div className={classes.cardBG}>
 	<Container maxWidth="lg" className={classes.guideContainer}>
@@ -117,9 +133,10 @@ export function UserHome(props){
 			<Button variant="contained" color="secondary" startIcon={<AddIcon />} onClick={() => handleButtonClick("/create")} className={classes.guideCreate} >
 				Create New
 			</Button>
+      <input placeholder="Search..." onChange={searchFilter}/>
         </Container>
         <Grid container spacing={3} sm={12} md={6} lg={12}>
-			{pages && pages[currentPage].map((howtoData) =>{
+			{pages && pages.length > 0 && pages[currentPage].map((howtoData) =>{
       const { title, user_id, problem, id, topic} = howtoData;
       return (
 		
