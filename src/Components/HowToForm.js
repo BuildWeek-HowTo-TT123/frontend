@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 
 import {axiosWithAuth} from './Util/axiosWithAuth';
 
-import { history, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export function HowToForm(props){
     const [formState, setFormState] = useState({
