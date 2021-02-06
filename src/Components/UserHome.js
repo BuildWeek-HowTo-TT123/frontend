@@ -101,8 +101,11 @@ export function UserHome(props){
   useEffect(() => {
     axiosWithAuth().get('/how-to')
     .then(res => {
-      setHowToData(res.data);
-      setSearchResults(res.data);
+      //sorts data from newest to oldest, should add a button to do this later
+      let data = res.data;
+      let reverse = data.reverse()
+      setHowToData(reverse);
+      setSearchResults(reverse);
       
     })
     .catch(err => console.log(err));
