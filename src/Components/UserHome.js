@@ -19,6 +19,7 @@ import {
 	Favorite as FavoriteIcon,
 	ArrowForward as ArrowForwardIcon,
 	Add as AddIcon,
+  LocalDining,
 } from "@material-ui/icons";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
@@ -135,11 +136,14 @@ export function UserHome(props){
 			</Button>
       <input placeholder="Search..." onChange={searchFilter}/>
         </Container>
+        {!pages &&
+          <h1>LOADING...</h1>
+        }
         <Grid container spacing={3} sm={12} md={6} lg={12}>
+        
 			{pages && pages.length > 0 && pages[currentPage].map((howtoData) =>{
       const { title, user_id, problem, id, topic} = howtoData;
       return (
-		
 			<Card className={classes.card} key={howtoData.id} mx="auto" raised>
 			<CardActionArea component={Link} to={`/howto/${id}`}>
 				<CardHeader
