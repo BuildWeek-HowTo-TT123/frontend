@@ -35,7 +35,7 @@ export function HowToPage(props){
         <p>Problem: {data.problem}</p> 
         <p>Solution: {data.solution}</p> 
         {data.user_id === JSON.parse(localStorage.getItem('user')).id &&
-          <Button onClick={deleteHowTo}>
+          <Button onClick={() => { if (window.confirm('Are you sure you wish to delete this How-To?')) deleteHowTo() } } >
             Delete How-To
           </Button>
         }
