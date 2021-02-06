@@ -116,7 +116,12 @@ export function UserHome(props){
   };
 
   const searchFilter = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
+    setSearchResults(
+      howtoData.filter((howto) => {
+        return howto.title.includes(e.target.value)
+      })
+    )
   }
 	return (
 <div className={classes.cardBG}>
@@ -131,7 +136,7 @@ export function UserHome(props){
       <input placeholder="Search..." onChange={searchFilter}/>
         </Container>
         <Grid container spacing={3} sm={12} md={6} lg={12}>
-			{pages && pages[currentPage].map((howtoData) =>{
+			{pages.length > 0 && pages[currentPage].map((howtoData) =>{
       const { title, user_id, problem, id, topic} = howtoData;
       return (
 		
