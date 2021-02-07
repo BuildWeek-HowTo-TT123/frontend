@@ -2,6 +2,8 @@ import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import { Button, Grid } from "@material-ui/core";
 
 
 
@@ -22,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
 		color: "#fff",
 		fontSize: "4rem",
 	},
+	heroText: {
+		width: "80%",
+	},
+	ctaButton: {
+		fontSize: "20px",
+		borderRadius: "100px",
+	},
 }));
 
 export function MainPage(){
@@ -29,7 +38,18 @@ export function MainPage(){
 	return (
 		<>
 			<Box className={classes.hero}>
-				<Box></Box>
+				<Grid className={classes.heroText}>
+					<Typography variant="h1" color="initial">
+						The best how to guide website!
+					</Typography>
+					<Button
+						variant="contained"
+						color="primary"
+						className={classes.ctaButton}
+					>
+						Get Started
+					</Button>
+				</Grid>
 			</Box>
 		</>
 	);
