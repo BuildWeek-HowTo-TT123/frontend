@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function UserHome(props){
   const history = useHistory(props);
+  const [newestToOldest, setNewestToOldest] = useState(true)
   const [howtoData, setHowToData] = useState();
   const [searchResults, setSearchResults] = useState();
   const [pages, setPages] = useState();
@@ -112,15 +113,21 @@ export function UserHome(props){
   }, [])
   useEffect(() => {
     setUpPages(searchResults);
-  }, [searchResults])
+  }, [searchResults, newestToOldest])
   const classes = useStyles();
 
   const handleButtonClick = (pageURL) => {
       history.push(pageURL);
   };
 
+  const timeFilter = () => {
+    let results = searchResults;
+    let reverse = searchResults.reverse();
+    setSearchResults(reverse);
+    setNewestToOldest(!newestToOldest);
+  }
+
   const searchFilter = (e) => {
-    console.log(e.target.value);
     setSearchResults(
       howtoData.filter((howto) => {
         return howto.title.includes(e.target.value)
@@ -175,6 +182,7 @@ export function UserHome(props){
 	  </Grid>	
     <Button onClick={() => changePage("previous")}>Previous page</Button>
     <Button onClick={() => changePage("next")}>Next page</Button>
+    <Button onClick={timeFilter}>{newestToOldest ? "Newest First" : "Oldest First"}</Button>
 	  </Container>
 	</div>
 	);
