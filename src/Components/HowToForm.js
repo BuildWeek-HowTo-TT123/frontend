@@ -37,7 +37,6 @@ export function HowToForm(props){
     })  
     const history = useHistory(props);
     const onSubmit = (e) => {
-        console.log("hello");
         e.preventDefault();
         axiosWithAuth().post(`/how-to`, {title: formState.title, problem: formState.problem, solution:formState.solution, topic: formState.username, user_id: formState.user_id})
         .then(res => {
@@ -113,6 +112,7 @@ export function HowToForm(props){
                type='submit'
                value='Submit'
                className='btn'
+               onClick={onSubmit}
                style={{flex: '1'}}
                />
            </form>
