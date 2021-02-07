@@ -98,28 +98,25 @@ export function UserHome(props){
     else if(which === "previous" && currentPage !== 0)
       setCurrentPage(currentPage-1);
   }
+  const sortData = (theData) => {
+    if(localStorage.getItem('newestFirst') === 'true'){
+      return theData.sort((a,b) => {
+        return b.id - a.id;
+      })
+    }
+    else
+      return theData.sort((a,b) => {
+        return a.id - b.id;
+      })
+
+  }
   useEffect(() => {
     axiosWithAuth().get('/how-to')
     .then(res => {
-      if(localStorage.getItem('newestFirst') === null){
+      if(localStorage.getItem('newestFirst') === null)
         localStorage.setItem('newestFirst', true);
-        let data = res.data;
-        let reverse = data.reverse();
-        setHowToData(reverse);
-        setSearchResults(reverse);
-      }
-      else if(localStorage.getItem('newestFirst') === 'true'){
-        let data = res.data;
-        let reverse = data.reverse();
-        setHowToData(reverse);
-        setSearchResults(reverse);
-      }
-      else if(localStorage.getItem('newestFirst') === 'false'){
-        setHowToData(res.data);
-        setSearchResults(res.data);
-      }
-      
-      
+      setHowToData(sortData(res.data));
+      setSearchResults(sortData(res.data));
     })
     .catch(err => console.log(err));
   }, [])
