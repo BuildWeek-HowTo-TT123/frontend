@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { Button, Grid } from "@material-ui/core";
+import { Link, useHistory } from "react-router-dom";
+import { FirstImage } from "../..imgs/search.svg";
 
 
 
@@ -33,8 +35,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export function MainPage(){
-  const classes = useStyles();
+export function MainPage(props) {
+	const history = useHistory(props);
+	const classes = useStyles();
+	const handleButtonClick = (pageURL) => {
+		history.push(pageURL);
+	};
 	return (
 		<>
 			<Box className={classes.hero}>
@@ -46,6 +52,7 @@ export function MainPage(){
 						variant="contained"
 						color="primary"
 						className={classes.ctaButton}
+						onClick={() => handleButtonClick("/signup")}
 					>
 						Get Started
 					</Button>
