@@ -33,52 +33,53 @@ const Login=(props)=>{
       });
   }
   return (
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
-        <Grid align="center">
-          <h2>Sign In</h2>
-        </Grid>
-        <TextField
-          id="username"
-          value={state.username}
-          onChange={handleChange}
-          label="Username"
-          placeholder="Enter username"
-          fullWidth
-          required
-        />
-        <TextField
-          id="password"
-          value={state.password}
-          onChange={handleChange}
-          label="Password"
-          placeholder="Enter password"
-          type="password"
-          fullWidth
-          required
-        />
+		<Grid>
+			<Paper elevation={10} style={paperStyle}>
+				<Grid align="center">
+					<h2>Sign In</h2>
+				</Grid>
+				<TextField
+					id="username"
+					value={state.username}
+					onChange={handleChange}
+					label="Username"
+					placeholder="Enter username"
+					fullWidth
+					required
+					mt={9}
+				/>
+				<TextField
+					id="password"
+					value={state.password}
+					onChange={handleChange}
+					label="Password"
+					placeholder="Enter password"
+					type="password"
+					fullWidth
+					required
+				/>
 
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          style={btnstyle}
-          onClick={login}
-          fullWidth
-        >
-          Sign In
-        </Button>
+				<Button
+					type="submit"
+					color="primary"
+					variant="contained"
+					style={btnstyle}
+					onClick={login}
+					fullWidth
+				>
+					Sign In
+				</Button>
 
-        <Typography>
-          {" "}
-          Do you have an account?
-          <Link style={{ marginLeft: "10px" }} href="/signup">
-            Sign Up
-          </Link>
-        </Typography>
-      </Paper>
-    </Grid>
-  );
+				<Typography>
+					{" "}
+					Do you have an account?
+					<Link style={{ marginLeft: "10px" }} href="/signup">
+						Sign Up
+					</Link>
+				</Typography>
+			</Paper>
+		</Grid>
+	);
 }
 
 export default Login
