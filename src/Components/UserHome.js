@@ -75,6 +75,7 @@ export function UserHome(props){
   const [searchResults, setSearchResults] = useState();
   const [pages, setPages] = useState();
   const [currentPage, setCurrentPage] = useState(0);
+  const [viewingAll, setViewingAll] = useState(true);
   //Will probably need a page system to account for multiple pages of how-tos, could be done server side (ideally) or I could come up with a local solution
   const setUpPages = (data) =>{
     if(!data)
@@ -152,6 +153,22 @@ export function UserHome(props){
       })
     )
   }
+
+  const userFilter = () => {
+    if(viewingAll){
+      setSearchResults(
+        howtoData.filter((howto) => {
+          return howto.topic === (JSON.parse(localStorage.getItem('user')).username)
+        })
+      )
+      setViewingAll(false);
+    }
+    else{
+      setSearchResults(howtoData);
+      setViewingAll(true);
+    }
+    
+  }
 	return (
 <div className={classes.cardBG}>
 	<Container maxWidth="lg" className={classes.guideContainer}>
@@ -201,6 +218,7 @@ export function UserHome(props){
     <Button onClick={() => changePage("previous")}>Previous page</Button>
     <Button onClick={() => changePage("next")}>Next page</Button>
     <Button onClick={timeFilter}>{localStorage.getItem('newestFirst') === 'true' ? "Newest First" : "Oldest First"}</Button>
+    <Button onClick={userFilter}>{viewingAll ? "All Posts" : "Your Posts"}</Button>
 	  </Container>
 	</div>
 	);
