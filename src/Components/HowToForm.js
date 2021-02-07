@@ -122,7 +122,7 @@ export function HowToForm(props){
                 variant="contained"
 						    color="primary"
 						    className={classes.submitButton}
-						    onClick={() => onSubmit()}
+						    onClick={onSubmit}
                  type='submit'
                  value='Submit'
                  style={{flex: '1'}}
