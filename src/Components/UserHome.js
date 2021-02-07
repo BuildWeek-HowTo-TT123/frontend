@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function UserHome(props){
   const history = useHistory(props);
-  const [newestToOldest, setNewestToOldest] = useState(true)
+  const [newestToOldest, setNewestToOldest] = useState(localStorage.getItem('newestFirst') ? localStorage.getItem('newestFirst') : true);
   const [howtoData, setHowToData] = useState();
   const [searchResults, setSearchResults] = useState();
   const [pages, setPages] = useState();
@@ -102,18 +102,31 @@ export function UserHome(props){
   useEffect(() => {
     axiosWithAuth().get('/how-to')
     .then(res => {
-      //sorts data from newest to oldest, should add a button to do this later
-      let data = res.data;
-      let reverse = data.reverse()
-      setHowToData(reverse);
-      setSearchResults(reverse);
+      if(localStorage.getItem('newestFirst') === null){
+        localStorage.setItem('newestFirst', true);
+        let data = res.data;
+        let reverse = data.reverse();
+        setHowToData(reverse);
+        setSearchResults(reverse);
+      }
+      else if(localStorage.getItem('newestFirst') === 'true'){
+        let data = res.data;
+        let reverse = data.reverse();
+        setHowToData(reverse);
+        setSearchResults(reverse);
+      }
+      else if(localStorage.getItem('newestFirst') === 'false'){
+        setHowToData(res.data);
+        setSearchResults(res.data);
+      }
+      
       
     })
     .catch(err => console.log(err));
   }, [])
   useEffect(() => {
     setUpPages(searchResults);
-  }, [searchResults, newestToOldest])
+  }, [searchResults, localStorage.getItem('newestFirst')])
   const classes = useStyles();
 
   const handleButtonClick = (pageURL) => {
@@ -121,10 +134,15 @@ export function UserHome(props){
   };
 
   const timeFilter = () => {
+    //might want to persist this via localStorage
     let results = searchResults;
     let reverse = searchResults.reverse();
     setSearchResults(reverse);
     setNewestToOldest(!newestToOldest);
+    if(localStorage.getItem('newestFirst') === 'true')
+      localStorage.setItem('newestFirst', false);
+    else
+      localStorage.setItem('newestFirst', true);
   }
 
   const searchFilter = (e) => {
@@ -182,7 +200,7 @@ export function UserHome(props){
 	  </Grid>	
     <Button onClick={() => changePage("previous")}>Previous page</Button>
     <Button onClick={() => changePage("next")}>Next page</Button>
-    <Button onClick={timeFilter}>{newestToOldest ? "Newest First" : "Oldest First"}</Button>
+    <Button onClick={timeFilter}>{localStorage.getItem('newestFirst') === 'true' ? "Newest First" : "Oldest First"}</Button>
 	  </Container>
 	</div>
 	);
