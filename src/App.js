@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import "./App.scss";
 import Header from "./Components/TopNav";
 
@@ -32,7 +32,4 @@ function App() {
 		</Router>
 	);
 }
-//<Route exact path="/home" component={UserHome} />
-//<Route exact path="/create" component={HowToForm} />
-//<Route path="/howto/:id" component={HowToPage} />
 export default App;

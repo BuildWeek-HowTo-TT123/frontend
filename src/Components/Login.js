@@ -22,8 +22,8 @@ const Login=(props)=>{
       }))
   }
   const login = e => {
-    axios.post("https://how-to-lifehack.herokuapp.com/users/login", {username: state.username, password: state.password}).
-      then(res => {
+    axios.post("https://how-to-lifehack.herokuapp.com/users/login", {username: state.username, password: state.password})
+      .then(res => {
         console.log(res);
         localStorage.setItem("user", JSON.stringify(res.data));
         props.history.push("/home");

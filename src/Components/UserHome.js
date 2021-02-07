@@ -11,7 +11,6 @@ import {
 	Grid,
 	Container,
 	CardActionArea,
-	CardMedia,
 	Button,
 } from "@material-ui/core";
 
@@ -19,9 +18,8 @@ import {
 	Favorite as FavoriteIcon,
 	ArrowForward as ArrowForwardIcon,
 	Add as AddIcon,
-  LocalDining,
 } from "@material-ui/icons";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -127,6 +125,7 @@ export function UserHome(props){
   }, [])
   useEffect(() => {
     setUpPages(searchResults);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchResults, localStorage.getItem('newestFirst')])
   const classes = useStyles();
 
@@ -135,10 +134,7 @@ export function UserHome(props){
   };
 
   const timeFilter = () => {
-    //might want to persist this via localStorage
-    let results = searchResults;
-    let reverse = searchResults.reverse();
-    setSearchResults(reverse);
+    setSearchResults(searchResults.reverse());
     setNewestToOldest(!newestToOldest);
     if(localStorage.getItem('newestFirst') === 'true')
       localStorage.setItem('newestFirst', false);
@@ -187,7 +183,7 @@ export function UserHome(props){
         <Grid container spacing={3} sm={12} md={6} lg={12}>
         
 			{pages && pages.length > 0 && pages[currentPage].map((howtoData) =>{
-      const { title, user_id, problem, id, topic} = howtoData;
+      const { title, problem, id, topic} = howtoData;
       return (
 			<Card className={classes.card} key={howtoData.id} mx="auto" raised>
 			<CardActionArea component={Link} to={`/howto/${id}`}>

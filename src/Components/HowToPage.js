@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {axiosWithAuth} from './Util/axiosWithAuth';
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 export function HowToPage(props){
@@ -17,7 +17,7 @@ export function HowToPage(props){
       setNewData(res.data);
     })
     .catch(err => console.log(err));
-  }, [])
+  }, [params.id])
   const deleteHowTo = () => {
     console.log('delet');
     axiosWithAuth().delete(`/how-to/${params.id}`)
