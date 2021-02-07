@@ -15,7 +15,6 @@ export function HowToPage(props){
     .then(res => {
       setData(res.data);
       setNewData(res.data);
-      console.log(res);
     })
     .catch(err => console.log(err));
   }, [])
@@ -29,7 +28,6 @@ export function HowToPage(props){
     .catch(err => console.log(err));
   }
   const submitEdit = () => {
-    //setEditing(false);
     axiosWithAuth().put(`/how-to/${params.id}`, {title: newData.title, problem: newData.problem, solution: newData.solution})
     .then(res => {
       console.log(res);

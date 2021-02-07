@@ -26,10 +26,13 @@ function App() {
 			<PrivateRoute exact path="/create">
         <HowToForm/>
       </PrivateRoute>
-			<Route path="/howto/:id" component={HowToPage} />
+      <PrivateRoute path="/howto/:id">
+        <HowToPage/>
+      </PrivateRoute>
 		</Router>
 	);
 }
 //<Route exact path="/home" component={UserHome} />
 //<Route exact path="/create" component={HowToForm} />
+//<Route path="/howto/:id" component={HowToPage} />
 export default App;
